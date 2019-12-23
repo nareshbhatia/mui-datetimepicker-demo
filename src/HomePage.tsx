@@ -30,9 +30,7 @@ const InitialDate = '2020-01-01T09:00:00-05:00';
 export const HomePage = () => {
     const classes = useStyles();
     const [tz, setTz] = React.useState(InitialTz);
-    const [date, setDate] = React.useState<moment.Moment>(
-        moment(InitialDate).tz(InitialTz)
-    );
+    const [date, setDate] = React.useState(moment(InitialDate).tz(InitialTz));
 
     const handleTimezoneChange = (
         event: React.ChangeEvent<{ value: unknown }>
@@ -44,6 +42,7 @@ export const HomePage = () => {
 
     const handleDateTimeChange = (date: MaterialUiPickersDate) => {
         if (date != null) {
+            console.log(`${date.format('YYYY-MM-DD hh:mm A')} ${date.tz()}`);
             setDate(date);
         }
     };
@@ -86,7 +85,9 @@ export const HomePage = () => {
             <Typography component="h2" variant="h6" className={classes.result}>
                 Result
             </Typography>
-            <Typography>{date.format('YYYY-MM-DD hh:mm A Z')}</Typography>
+            <Typography>
+                {date.format('YYYY-MM-DD hh:mm A')} {date.tz()}
+            </Typography>
         </Box>
     );
 };
